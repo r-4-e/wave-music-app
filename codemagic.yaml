@@ -1,0 +1,50 @@
+workflows:
+  wave-android-build:
+    name: Wave Android Build
+    max_build_duration: 60
+    instance_type: linux
+    environment:
+      groups:
+        - keystore_credentials
+      vars:
+        PACKAGE_NAME: "com.wave.musicapp"
+      node: 20.11.1
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: main
+          include: true
+          source: true
+
+    scripts:
+      - name: Install Cordova CLI
+        script: |
+          npm install -g cordova
+
+      - name: Add Android platform
+        script: |
+          cordova platform add android
+
+      - name: Install Cordova plugins
+        script: |
+          cordova plugin add cordova-plugin-whitelist
+          cordova plugin add cordova-plugin-device
+          cordova plugin add cordova-plugin-background-mode
+          cordova plugin add cordova-plugin-music-controls2
+
+      - name: Build debug APK
+        script: |
+          cordova build android --debug
+
+    artifacts:
+      - platforms/android/app/build/outputs/apk/debug/*.apk
+      - platforms/android/app/build/outputs/**/*.apk
+
+    publishing:
+      email:
+        recipients:
+          - you@example.com
+        notify:
+          success: true
+          failure: true
