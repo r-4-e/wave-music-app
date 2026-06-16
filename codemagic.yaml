@@ -6,6 +6,9 @@ workflows:
     environment:
       vars:
         PACKAGE_NAME: "com.wave.musicapp"
+        # Defines where the SDK lives and appends sdkmanager to the executable PATH
+        ANDROID_HOME: /Users/builder/Library/Android/sdk
+        PATH: $PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/tools/bin
       node: 20.11.1
 
     triggering:
@@ -23,8 +26,9 @@ workflows:
 
       - name: Install Android SDK 35
         script: |
-          yes | sdkmanager "platforms;android-35"
-          yes | sdkmanager "build-tools;35.0.0"
+          # Added the --sdk_root flag as a safety measure for newer cmdline-tools
+          yes | sdkmanager --sdk_root=$ANDROID_HOME "platforms;android-35"
+          yes | sdkmanager --sdk_root=$ANDROID_HOME "build-tools;35.0.0"
 
       - name: Add Android platform
         script: |
