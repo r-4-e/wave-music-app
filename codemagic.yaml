@@ -2,12 +2,12 @@ workflows:
   wave-android-build:
     name: Wave Android Build
     max_build_duration: 60
+
     environment:
-      groups:
-        - keystore_credentials
       vars:
         PACKAGE_NAME: "com.wave.musicapp"
       node: 20.11.1
+
     triggering:
       events:
         - push
@@ -21,10 +21,15 @@ workflows:
         script: |
           npm install -g cordova
 
+      - name: Install Android SDK 35
+        script: |
+          yes | sdkmanager "platforms;android-35"
+          yes | sdkmanager "build-tools;35.0.0"
+
       - name: Add Android platform
         script: |
-         cordova platform add android@13.0.0
-    
+          cordova platform add android@13.0.0
+
       - name: Install Cordova plugins
         script: |
           cordova plugin add cordova-plugin-whitelist
