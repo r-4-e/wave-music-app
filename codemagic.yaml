@@ -23,8 +23,8 @@ workflows:
 
       - name: Add Android platform
         script: |
-          cordova platform add android
-
+         cordova platform add android@13.0.0
+    
       - name: Install Cordova plugins
         script: |
           cordova plugin add cordova-plugin-whitelist
