@@ -20,9 +20,12 @@ workflows:
           source: true
 
     scripts:
-      - name: Install Cordova CLI
+      - name: Install Cordova CLI & Workspace Purge
         script: |
           npm install -g cordova
+          # Deep clean prior execution states to avoid manifest grafting errors
+          rm -rf platforms/android
+          rm -rf plugins/
 
       - name: Install Android SDK 35
         script: |
@@ -32,9 +35,11 @@ workflows:
 
       - name: Add Android platform and restore plugins
         script: |
+          # Fresh injection of platform targeting Android 15 requirements
           cordova platform add android@13.0.0
-          # This reads your exact config.xml, installs the specified versions, 
-          # and correctly applies the required AndroidManifest.xml merges.
+          
+          # This reads your updated config.xml, installs the specified versions, 
+          # and correctly applies the required AndroidManifest.xml merges without crashing.
           cordova prepare android
 
       - name: Build debug APK
