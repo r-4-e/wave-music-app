@@ -30,16 +30,12 @@ workflows:
           yes | sdkmanager --sdk_root=$ANDROID_HOME "platforms;android-35"
           yes | sdkmanager --sdk_root=$ANDROID_HOME "build-tools;35.0.0"
 
-      - name: Add Android platform
+      - name: Add Android platform and restore plugins
         script: |
           cordova platform add android@13.0.0
-
-      - name: Install Cordova plugins
-        script: |
-          cordova plugin add cordova-plugin-whitelist
-          cordova plugin add cordova-plugin-device
-          cordova plugin add cordova-plugin-background-mode
-          cordova plugin add cordova-plugin-music-controls2
+          # This reads your exact config.xml, installs the specified versions, 
+          # and correctly applies the required AndroidManifest.xml merges.
+          cordova prepare android
 
       - name: Build debug APK
         script: |
