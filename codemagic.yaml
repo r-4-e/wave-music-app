@@ -10,7 +10,7 @@ workflows:
         ANDROID_SDK_ROOT: /Users/builder/Library/Android/sdk
         PATH: $PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/tools/bin
       node: 20.11.1
-      
+
     triggering:
       events:
         - push
@@ -26,10 +26,10 @@ workflows:
           rm -rf platforms/android
           rm -rf plugins/
 
-      - name: Install Android SDK 34 platform and build-tools
+      - name: Install Android SDK 35 platform and build-tools
         script: |
-          yes | sdkmanager --sdk_root=$ANDROID_HOME "platforms;android-34"
-          yes | sdkmanager --sdk_root=$ANDROID_HOME "build-tools;34.0.0"
+          yes | sdkmanager --sdk_root=$ANDROID_HOME "platforms;android-35"
+          yes | sdkmanager --sdk_root=$ANDROID_HOME "build-tools;35.0.0"
 
       - name: Add Android platform and restore plugins
         script: |
