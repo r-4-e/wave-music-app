@@ -7,9 +7,10 @@ workflows:
       vars:
         PACKAGE_NAME: "com.wave.musicapp"
         ANDROID_HOME: /Users/builder/Library/Android/sdk
+        ANDROID_SDK_ROOT: /Users/builder/Library/Android/sdk
         PATH: $PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/tools/bin
       node: 20.11.1
-
+      
     triggering:
       events:
         - push
