@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.wave.musicapp" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
 
-    <name>Wave</name>
+    <name>Wave</name> 
     <description>A personal music streaming app with a Spotify-style interface and YouTube-based audio extraction.</description>
     <author email="you@example.com" href="https://example.com">Your Name</author>
 
