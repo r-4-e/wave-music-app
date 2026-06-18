@@ -28,8 +28,17 @@ workflows:
 
       - name: Install Android SDK 35 platform and build-tools
         script: |
+          echo "--- which sdkmanager ---"
+          which sdkmanager || echo "sdkmanager NOT FOUND on PATH"
+          echo "--- PATH is ---"
+          echo $PATH
+          echo "--- build-tools BEFORE install ---"
+          ls $ANDROID_HOME/build-tools/ || echo "no build-tools dir yet"
+          echo "--- running sdkmanager installs ---"
           yes | sdkmanager --sdk_root=$ANDROID_HOME "platforms;android-35"
           yes | sdkmanager --sdk_root=$ANDROID_HOME "build-tools;35.0.0"
+          echo "--- build-tools AFTER install ---"
+          ls $ANDROID_HOME/build-tools/
 
       - name: Add Android platform and restore plugins
         script: |
