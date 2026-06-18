@@ -44,8 +44,10 @@ workflows:
 
       - name: Build debug APK
         script: |
-          cordova build android --debug
-
+          cd platforms/android
+          ./gradlew cdvBuildDebug -PandroidXAppCompatVersion=1.7.0
+          cd ../..
+          
     artifacts:
       - platforms/android/app/build/outputs/apk/debug/*.apk
       - platforms/android/app/build/outputs/**/*.apk
