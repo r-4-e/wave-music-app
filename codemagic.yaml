@@ -28,8 +28,8 @@ workflows:
 
       - name: Install Android SDK 35 platform and build-tools
         script: |
-          yes | sdkmanager --sdk_root=$ANDROID_HOME "platforms;android-35"
-          yes | sdkmanager --sdk_root=$ANDROID_HOME "build-tools;35.0.0"
+          yes | sdkmanager --sdk_root=$ANDROID_HOME "platforms;android-34"
+          yes | sdkmanager --sdk_root=$ANDROID_HOME "build-tools;34.0.0"
 
       - name: Add Android platform and restore plugins
         script: |
