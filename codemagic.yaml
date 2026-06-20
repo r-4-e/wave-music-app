@@ -26,7 +26,7 @@ workflows:
           rm -rf platforms/android
           rm -rf plugins/
 
-      - name: Install Android SDK 35 platform and build-tools
+      - name: Install Android SDK 34 platform and build-tools
         script: |
           yes | sdkmanager --sdk_root=$ANDROID_HOME "platforms;android-34"
           yes | sdkmanager --sdk_root=$ANDROID_HOME "build-tools;34.0.0"
@@ -35,19 +35,24 @@ workflows:
         script: |
           cordova platform add android@13.0.0
           cordova prepare android
+          echo "--- checking gradlew exists ---"
+          ls -la platforms/android/gradlew
 
       - name: Force correct SDK path for Gradle
         script: |
           echo "sdk.dir=$ANDROID_HOME" > platforms/android/local.properties
-          echo "--- local.properties content ---"
           cat platforms/android/local.properties
+
+      - name: Patch appcompat dependency version
+        script: |
+          sed -i.bak "s/androidx.appcompat:appcompat:[0-9.]*/androidx.appcompat:appcompat:1.7.0/g" platforms/android/app/build.gradle
+          echo "--- build.gradle appcompat line ---"
+          grep "appcompat" platforms/android/app/build.gradle
 
       - name: Build debug APK
         script: |
-          cd platforms/android
-          ./gradlew cdvBuildDebug -PandroidXAppCompatVersion=1.7.0
-          cd ../..
-          
+          cordova build android --debug
+
     artifacts:
       - platforms/android/app/build/outputs/apk/debug/*.apk
       - platforms/android/app/build/outputs/**/*.apk
