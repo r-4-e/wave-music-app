@@ -35,8 +35,10 @@ workflows:
         script: |
           cordova platform add android@13.0.0
           cordova prepare android
-          echo "--- checking gradlew exists ---"
-          ls -la platforms/android/gradlew
+          echo "--- current working directory ---"
+          pwd
+          echo "--- full platforms/android contents ---"
+          ls -la platforms/android/ || echo "platforms/android does not exist"
 
       - name: Force correct SDK path for Gradle
         script: |
