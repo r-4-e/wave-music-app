@@ -47,8 +47,7 @@ workflows:
 
       - name: Patch appcompat dependency version
         script: |
-          sed -i.bak "s/androidx.appcompat:appcompat:[0-9.]*/androidx.appcompat:appcompat:1.7.0/g" platforms/android/app/build.gradle
-          echo "--- build.gradle appcompat line ---"
+          sed -i.bak "s/androidx\.appcompat:appcompat:[0-9][0-9.]*/androidx.appcompat:appcompat:1.7.0/g" platforms/android/app/build.gradle
           grep "appcompat" platforms/android/app/build.gradle
 
       - name: Build debug APK
